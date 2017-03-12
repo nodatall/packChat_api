@@ -35,7 +35,7 @@ const addEvent = function (data) {
 const addCrisis = function (data) {
   console.log('creating crisis', data)
   //
-  return db.query('INSERT INTO crises (child_id, pack_id,  name) VALUES ($1, $2, $3)', [data.childId, data.packId, data.name])
+  return db.query('INSERT INTO crises (child_id, pack_id,  name) VALUES ($1, $2, $3) RETURNING id', [data.childId, data.packId, data.name])
   .catch(error => console.log('error:', error))
 }
 
@@ -53,7 +53,7 @@ const joinChildtoEvent = function (data) {
 
 const getParentofChildofCrisis = function (data) {
   return db.task(t => {
-   return  t.one("SELECT child_id FROM crises WHERE id = $1", data. crisis_id)
+   return  t.one("SELECT child_id FROM crises WHERE id = $1", data.crisis_id)
       .then(crisis => {
         return t.one("SELECT parent_id FROM children where id = $1",crisis.child_id)
           .then(child => {

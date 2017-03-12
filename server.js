@@ -54,14 +54,18 @@ io.on('connection', function (clientSocket) {
       packId: data.packId,
       name: data.message
     })
-
-    db.getParentsByPack(data.packId)
-    .then(parentIds => {
-      parentIds.forEach(parentId => {
-        getSocketByParentId(parentId.parent_id).emit('crisis', data.message)
+    .then(crisisId => {
+      getParentofChildofCrisis({crisis_id: crisisId})
+      .then(distressedParentId => {
+        db.getParentsByPack(data.packId)
+        .then(parentIds => {
+          parentIds.forEach(parentId => {
+            getSocketByParentId(parentId.parent_id).emit('crisis', {message: data.message, packId: data.packid, parentId: distressedParentId})
+          })
+        })
+        .catch(error => console.log('error in crisis handler:', error))
       })
     })
-    .catch(error => console.log('error in crisis handler:', error))
   })
 
   clientSocket.on('acceptChallenge', function (data) {
