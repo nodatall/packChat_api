@@ -8,6 +8,7 @@ const db = pgp({
 
 const addParent = function (data) {
   console.log('adding parent', data)
+
   return db.query('INSERT INTO parents (email, first_name, last_name, password, picture_url) VALUES ($1, $2, $3, $4, $5)', [data.email, data.first_name, data.last_name, data.password, data.picture_url])
   .catch(error => console.log('error:', error))
 }
@@ -62,7 +63,7 @@ const getParentofChildofCrisis = function (data) {
       })
       .catch(error => console.log('error:', error))
   })
-  }
+}
 
 const joinSaviortoCrisis = function (data) {
    console.log('join savior to crisis', data)
