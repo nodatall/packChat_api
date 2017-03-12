@@ -6,6 +6,7 @@
   "scripts": {
     "createdb": "createdb packchat",
     "schema": "psql packchat < dbsetup.sql",
+    "seed": "psql packchat < seed.sql",
     "start": "node server.js"
   },
   "author": "",
