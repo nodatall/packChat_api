@@ -41,7 +41,7 @@ const addCrisis = function (data) {
 
 const joinChildtoPack = function (data) {
    console.log('join child to pack', data)
-  return db.query('INSERT INTO children_pack (child_id, pack_id) VALUES ($1, $2)', [data.child_id, data.child_pack ])
+  return db.query('INSERT INTO children_packs (child_id, pack_id) VALUES ($1, $2)', [data.child_id, data.child_pack ])
   .catch(error => console.log('error:', error))
 }
 
@@ -64,7 +64,11 @@ const getParentofChildofCrisis = function (data) {
       .catch(error => console.log('error:', error))
   })
 }
-
+const getParentsByPack = function (packId) {
+  console.log("input", packId)
+  return db.any ("SELECT parent_id FROM children INNER JOIN(SELECT children.id ON children.id = children_packs.child_id FROM (children_packs WHERE pack_id = $1))", packId)
+    .catch(error => console.log('error:', error))
+  }
 const joinSaviortoCrisis = function (data) {
    console.log('join savior to crisis', data)
   return db.one('UPDATE crises SET  savior_id = $1 WHERE crisis_id = $2', [data.savior_id, data.crisis_id])
