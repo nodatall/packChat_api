@@ -9,7 +9,7 @@ const db = pgp({
 const addParent = function (data) {
   console.log('adding parent', data)
 
-  return db.query('INSERT INTO parents (email, first_name, last_name, password, picture_url) VALUES ($1, $2, $3, $4, $5)', [data.email, data.first_name, data.last_name, data.password, data.picture_url])
+  return db.query('INSERT INTO parents (email, first_name, last_name, password, picture_url) VALUES ($1, $2, $3, $4, $5)', [data.email, data.firstName, data.lastName, data.password, data.pictureUrl])
   .catch(error => console.log('error:', error))
 }
 
@@ -35,7 +35,7 @@ const addEvent = function (data) {
 const addCrisis = function (data) {
   console.log('creating crisis', data)
   //
-  return db.query('INSERT INTO crises (child_id, event_id,  name) VALUES ($1, $2, $3)', [data.child_id, data.event_id, data.name])
+  return db.query('INSERT INTO crises (child_id, pack_id,  name) VALUES ($1, $2, $3)', [data.childId, data.packId, data.name])
   .catch(error => console.log('error:', error))
 }
 
@@ -75,4 +75,4 @@ const joinSaviortoCrisis = function (data) {
   .catch(error => console.log('error:', error))
 }
 
-module.exports = {addParent, addChild, addPack, addEvent, joinChildtoPack, joinChildtoEvent, joinSaviortoCrisis, getParentofChildofCrisis, getParentsByPack}
+module.exports = {addParent, addChild, addPack, addEvent, joinChildtoPack, joinChildtoEvent, joinSaviortoCrisis, getParentofChildofCrisis, getParentsByPack, addCrisis}

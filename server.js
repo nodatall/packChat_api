@@ -31,6 +31,11 @@ app.post('/joinSaviorToCrisis', function(request, response) {
 io.on('connection', function (clientSocket) {
   console.log('A client connected')
 
+  connectedParents.push({
+    parentId: 1,
+    socket: clientSocket
+  })
+
   clientSocket.on('login', function (data) {
     connectedParents.push({
       parentId: data.parentId,
@@ -43,10 +48,17 @@ io.on('connection', function (clientSocket) {
 
     console.log('in crises handler')
     console.log('data:', data)
+
+    db.addCrisis({
+      childId: data.childId,
+      packId: data.packId,
+      name: data.message
+    })
+
     db.getParentsByPack(data.packId)
     .then(parentIds => {
       parentIds.forEach(parentId => {
-        getSocketByParentId(parentId).emit('crisis', data.message)
+        getSocketByParentId(parentId.parent_id).emit('crisis', data.message)
       })
     })
     .catch(error => console.log('error in crisis handler:', error))
@@ -82,7 +94,9 @@ io.on('connection', function (clientSocket) {
 })
 
 function getSocketByParentId (parentId) {
-  return connectedParents.find(parent => parent.id === parentId).socket
+  console.log('in getSocketByParentId, parentId:', parentId)
+  console.log('connectedParents', connectedParents)
+  return connectedParents.find(parent => parent.parentId == parentId).socket
 }
 
 function sendAcceptMessageToPack(acceptMessageData) {
