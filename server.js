@@ -1,8 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
+
 const db = require('./db')
 
-const app = express()
 
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -18,6 +21,6 @@ app.post('/addPack', function(request, response) {
   db.addPack(request.body)
 })
 
-app.listen(3002, function () {
+server.listen(3002, function () {
   console.log('-:: Listening on port 3002 ::-')
 })
