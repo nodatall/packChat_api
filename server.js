@@ -21,6 +21,10 @@ app.post('/addPack', function(request, response) {
   db.addPack(request.body)
 })
 
+app.post('/joinSaviorToCrisis', function(request, response) {
+  db.joinSaviortoCrisis(request.body)
+})
+
 server.listen(3002, function () {
   console.log('-:: Listening on port 3002 ::-')
 })
