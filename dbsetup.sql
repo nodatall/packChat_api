@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS children_events;
 CREATE TABLE children_events (
   id SERIAL PRIMARY KEY,
   child_id INTEGER,
-  event_id INTEGER
+  pack_id INTEGER
 );
 
 DROP TABLE IF EXISTS crises;
