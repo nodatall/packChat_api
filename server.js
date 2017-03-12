@@ -53,9 +53,14 @@ io.on('connection', function (clientSocket) {
   })
 
   clientSocket.on('acceptChallenge', function (data) {
-    db.addSaviorToCrisis(data.crisisId, data.parentId)
+    db.joinSaviortoCrisis({
+      crisisId: data.crisisId,
+      saviorId: data.parentId
+    })
 
-    db.getParentByCrisis(data.crisisId)
+    db.getParentofChildofCrisis({
+      crisisId: data.crisisId
+    })
     .then(parentWithCrisisId => {
       getSocketByParentId(parentWithCrisisId)
       .emit('saviorFound', {saviorId: data.parentId})
