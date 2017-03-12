@@ -21,7 +21,6 @@ CREATE TABLE children (
   id SERIAL PRIMARY KEY,  
   parent_id INTEGER,
   first_name VARCHAR(255),
-  last_name VARCHAR(255),
   picture_url VARCHAR(255)
 );
 
@@ -50,8 +49,8 @@ CREATE TABLE children_events (
 DROP TABLE IF EXISTS crises;
 CREATE TABLE crises (
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255), 
-  child_id INTEGER
+  child_id INTEGER,
+  name VARCHAR(255)
 );
 
 DROP TABLE IF EXISTS crises;
