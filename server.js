@@ -40,12 +40,16 @@ io.on('connection', function (clientSocket) {
   })
 
   clientSocket.on('crisis', function (data) {
+
+    console.log('in crises handler')
+    console.log('data:', data)
     db.getParentsByPack(data.packId)
     .then(parentIds => {
       parentIds.forEach(parentId => {
         getSocketByParentId(parentId).emit('crisis', data.message)
       })
     })
+    .catch(error => console.log('error in crisis handler:', error))
   })
 
   clientSocket.on('acceptChallenge', function (data) {

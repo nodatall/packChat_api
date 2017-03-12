@@ -34,7 +34,7 @@ const addEvent = function (data) {
 
 const addCrisis = function (data) {
   console.log('creating crisis', data)
-  // 
+  //
   return db.query('INSERT INTO crises (child_id, event_id,  name) VALUES ($1, $2, $3)', [data.child_id, data.event_id, data.name])
   .catch(error => console.log('error:', error))
 }
@@ -66,8 +66,8 @@ const getParentofChildofCrisis = function (data) {
 }
 const getParentsByPack = function (packId) {
   console.log("input", packId)
-  return db.any ("SELECT parent_id FROM children INNER JOIN(SELECT children.id ON children.id = children_packs.child_id FROM (children_packs WHERE pack_id = $1))", packId)
-    .catch(error => console.log('error:', error))
+  return db.any ("SELECT parent_id FROM children INNER JOIN children_packs ON children.id = children_packs.child_id WHERE pack_id = $1", packId)
+    .catch(error => console.log('error in getParentsByPack db:', error))
   }
 const joinSaviortoCrisis = function (data) {
    console.log('join savior to crisis', data)
@@ -75,4 +75,4 @@ const joinSaviortoCrisis = function (data) {
   .catch(error => console.log('error:', error))
 }
 
-module.exports = {addParent, addChild, addPack, addEvent, joinChildtoPack, joinChildtoEvent, joinSaviortoCrisis, getParentofCrisis}
+module.exports = {addParent, addChild, addPack, addEvent, joinChildtoPack, joinChildtoEvent, joinSaviortoCrisis, getParentofChildofCrisis, getParentsByPack}
