@@ -1,0 +1,16 @@
+{
+  "name": "packchat_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "createdb":"createdb packchat",
+    "schema":"psql packchat < dbsetup.sql"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "pg-promise": "^5.6.4"
+  }
+}
