@@ -50,10 +50,24 @@ const joinChildtoEvent = function (data) {
   .catch(error => console.log('error:', error))
 }
 
-const joinSaviortoCrisis =  function (data) {
+const getParentofChildofCrisis = function (data) {
+  return db.task(t => {
+   return  t.one("SELECT child_id FROM crises WHERE id = $1", data. crisis_id)
+      .then(crisis => {
+        return t.one("SELECT parent_id FROM children where id = $1",crisis.child_id)
+          .then(child => {
+                      return child.parent_id
+                    })
+          .catch(error => console.log('error:', error))
+      })
+      .catch(error => console.log('error:', error))
+  })
+  }
+
+const joinSaviortoCrisis = function (data) {
    console.log('join savior to crisis', data)
-  return db.query('UPDATE crises SET  savior_id = $1 WHERE crisis_id = $2', [data.savior_id, data.crisis_id])
+  return db.one('UPDATE crises SET  savior_id = $1 WHERE crisis_id = $2', [data.savior_id, data.crisis_id])
   .catch(error => console.log('error:', error))
 }
 
-module.exports = {addParent, addChild, addPack, addEvent, joinChildtoPack, joinChildtoEvent, joinSaviortoCrisis}
+module.exports = {addParent, addChild, addPack, addEvent, joinChildtoPack, joinChildtoEvent, joinSaviortoCrisis, getParentofCrisis}
