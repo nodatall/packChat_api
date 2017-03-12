@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS parents;
+DROP TABLE IF EXISTS parent;
 CREATE TABLE parents (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255),
