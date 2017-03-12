@@ -24,6 +24,10 @@ app.post('/addPack', function(request, response) {
   db.addPack(request.body)
 })
 
+app.post('/joinSaviorToCrisis', function(request, response) {
+  db.joinSaviortoCrisis(request.body)
+})
+
 io.on('connection', function (clientSocket) {
   console.log('A client connected')
 
