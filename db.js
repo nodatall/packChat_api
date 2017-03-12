@@ -52,7 +52,7 @@ const joinChildtoEvent = function (data) {
 
 const joinSaviortoCrisis =  function (data) {
    console.log('join savior to crisis', data)
-  return db.query('UPDATE crises SET  savior_id = (savior_id) WHERE crisis_id = (crisis_id)', [data.savior_id, data.crisis_id])
+  return db.query('UPDATE crises SET  savior_id = $1 WHERE crisis_id = $2', [data.savior_id, data.crisis_id])
   .catch(error => console.log('error:', error))
 }
 
