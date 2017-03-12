@@ -49,13 +49,6 @@ CREATE TABLE children_events (
 DROP TABLE IF EXISTS crises;
 CREATE TABLE crises (
   id SERIAL PRIMARY KEY,
-  child_id INTEGER,
-  name VARCHAR(255)
-);
-
-DROP TABLE IF EXISTS crises;
-CREATE TABLE crises (
-  id SERIAL PRIMARY KEY,
   name VARCHAR(255), 
   child_id INTEGER,
   event_id INTEGER,

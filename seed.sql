@@ -11,6 +11,10 @@ INSERT INTO
 VALUES
  (default, "Soccer Team 2017", "Go Bulldogs");
 
+INSERT INTO 
+  events
+VALUES
+ (default, "First Meet of the Season");
 
 INSERT INTO 
   children
